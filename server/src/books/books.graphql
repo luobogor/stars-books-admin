@@ -1,0 +1,17 @@
+type Book {
+  # Example field (placeholder)
+  exampleField: Int
+}
+
+input CreateBookInput {
+  # Example field (placeholder)
+  exampleField: Int
+}
+
+type Query {
+  books: [Book]!
+}
+
+type Mutation {
+  createBook(createBookInput: CreateBookInput!): Book!
+}
