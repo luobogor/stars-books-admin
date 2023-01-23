@@ -14,6 +14,7 @@ import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       typePaths: ['./**/*.graphql'],
+      // 关闭原来的 playground，使用 https://studio.apollographql.com/sandbox/explorer
       playground: false,
       plugins: [ApolloServerPluginLandingPageLocalDefault],
     }),

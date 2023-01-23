@@ -1,11 +1,19 @@
 import { Injectable } from '@nestjs/common';
-import { CreateBookInput } from './dto/create-book.input';
+import { CreateBookDto } from './dto/create-book.input';
 
 @Injectable()
 export class BooksService {
-  create(createBookInput: CreateBookInput) {
+  create(createBookInput: CreateBookDto) {
     return {
-      exampleField: 4,
+      id: '1',
+      name: '西游',
+      type: '魔幻',
+      author: {
+        id: '1',
+        name: '吴承恩',
+        gender: 1,
+        email: 'wuchengen@qq.com',
+      },
     };
   }
 
