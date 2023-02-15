@@ -19,4 +19,12 @@ export class AuthorsService {
       },
     });
   }
+
+  findOneById(id) {
+    return this.prisma.author.findUnique({
+      where: {
+        id,
+      },
+    });
+  }
 }

@@ -1,7 +1,14 @@
 import { AuthorsService } from '../authors/authors.service';
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Mutation,
+  Parent,
+  Query,
+  Resolver,
+  ResolveProperty,
+} from '@nestjs/graphql';
 
-@Resolver()
+@Resolver('Book')
 export class BooksAuthorResolver {
   constructor(private authorsService: AuthorsService) {}
 
@@ -13,5 +20,10 @@ export class BooksAuthorResolver {
   @Mutation('createAuthor')
   async create(@Args('createAuthorInput') args) {
     return this.authorsService.create(args);
+  }
+
+  @ResolveProperty()
+  async author(@Parent() book) {
+    return this.authorsService.findOneById(book.authorId);
   }
 }

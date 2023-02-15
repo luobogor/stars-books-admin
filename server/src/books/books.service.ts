@@ -1,38 +1,22 @@
 import { Injectable } from '@nestjs/common';
-import { CreateBookDto } from './dto/create-book.input';
+import { PrismaService } from '../../prisma/prisma.service';
+import { Prisma } from '.prisma/client';
 
 @Injectable()
 export class BooksService {
-  create(createBookInput: CreateBookDto) {
-    return {
-      id: '1',
-      name: '西游',
-      type: '魔幻',
-      author: {
-        id: '1',
-        name: '吴承恩',
-        gender: 1,
-        email: 'wuchengen@qq.com',
-      },
-    };
+  constructor(private prisma: PrismaService) {}
+
+  create(createBookInput: Prisma.BookUncheckedCreateInput) {
+    return this.prisma.book.create({
+      data: createBookInput,
+    });
   }
 
   findAll() {
-    // return `This action returns all books`;
-    return [
-      {
-        exampleField: 1,
-      },
-      {
-        exampleField: 2,
-      },
-      {
-        exampleField: 3,
-      },
-    ];
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} book`;
+    return this.prisma.book.findMany({
+      // include: {
+      //   author: true,
+      // },
+    });
   }
 }
