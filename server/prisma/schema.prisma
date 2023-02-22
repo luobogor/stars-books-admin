@@ -10,8 +10,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+generator nestgraphql {
+  provider               = "node node_modules/prisma-nestjs-graphql"
+  output                 = "../src/@generated/prisma-nestjs-graphql"
+  fields_Validator_from  = "class-validator"
+  fields_Validator_input = true
+}
+
 model Book {
   id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  /// @Validator.MinLength(1)
   name     String  @unique
   type     String?
   author   Author  @relation(fields: [authorId], references: [id])
@@ -23,6 +31,7 @@ model Author {
   name   String
   // 1 男性 2 女性
   gender Int
+  /// @Validator.IsEmail()
   email  String
   books  Book[]
 }

@@ -7,6 +7,7 @@ import {
   Resolver,
   ResolveProperty,
 } from '@nestjs/graphql';
+import { AuthorCreateInput } from '../@generated/prisma-nestjs-graphql/author/author-create.input';
 
 @Resolver('Book')
 export class BooksAuthorResolver {
@@ -18,7 +19,7 @@ export class BooksAuthorResolver {
   }
 
   @Mutation('createAuthor')
-  async create(@Args('createAuthorInput') args) {
+  async create(@Args('createAuthorInput') args: AuthorCreateInput) {
     return this.authorsService.create(args);
   }
 
