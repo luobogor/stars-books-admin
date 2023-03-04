@@ -2,7 +2,7 @@ import { useQuery, useMutation } from '@vue/apollo-composable'
 import gql from 'graphql-tag'
 
 export const useBooks = () => {
-  const { result } = useQuery(gql`
+  const { result, refetch } = useQuery(gql`
     query getBooks {
       books {
         id
@@ -16,7 +16,8 @@ export const useBooks = () => {
   `)
 
   return {
-    result
+    result,
+    refetch
   }
 }
 
@@ -40,6 +41,19 @@ export const useAddAuthor = () => {
   const { mutate, onDone } = useMutation(gql`
     mutation createAuthor($createAuthorInput: CreateAuthorInput!) {
       createAuthor(createAuthorInput: $createAuthorInput) {
+        id
+      }
+    }
+  `)
+
+  return { mutate, onDone }
+}
+
+
+export const useAddBook = () => {
+  const { mutate, onDone } = useMutation(gql`
+    mutation createBook($createBookInput: CreateBookInput!) {
+      createBook(createBookInput: $createBookInput) {
         id
       }
     }
